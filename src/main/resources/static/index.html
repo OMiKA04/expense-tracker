@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<main class="container">
+    <h1>Personal Expense Tracker</h1>
+    <p>Manage your income and expenses.</p>
+
+    <section class="summary">
+        <div class="card">
+            <h3>Total Income</h3>
+            <h2 id="income">Rs. 0.00</h2>
+        </div>
+        <div class="card">
+            <h3>Total Expenses</h3>
+            <h2 id="expenses">Rs. 0.00</h2>
+        </div>
+        <div class="card">
+            <h3>Balance</h3>
+            <h2 id="balance">Rs. 0.00</h2>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>Add Transaction</h2>
+        <form id="transactionForm">
+            <input id="title" placeholder="Title" required>
+            <input id="amount" type="number" step="0.01"
+                   min="0.01" placeholder="Amount" required>
+
+            <select id="type">
+                <option value="EXPENSE">Expense</option>
+                <option value="INCOME">Income</option>
+            </select>
+
+            <input id="category" placeholder="Category" required>
+            <input id="date" type="date" required>
+            <input id="description" placeholder="Description">
+
+            <button type="submit">Add Transaction</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h2>Transaction History</h2>
+
+        <select id="filterType">
+            <option value="">All Transactions</option>
+            <option value="INCOME">Income</option>
+            <option value="EXPENSE">Expenses</option>
+        </select>
+
+        <p id="message" role="status"></p>
+        <div id="transactions"></div>
+    </section>
+</main>
+</body>
+</html>
