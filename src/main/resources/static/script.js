@@ -4,6 +4,10 @@ const API = "/api/transactions";
 const form = document.getElementById("transactionForm");
 const filterType = document.getElementById("filterType");
 const message = document.getElementById("message");
+const filterCategory = document.getElementById("filterCategory");
+const startDate = document.getElementById("startDate");
+const endDate = document.getElementById("endDate");
+const clearFilters = document.getElementById("clearFilters");
 
 document.getElementById("date").value =
     new Date().toLocaleDateString("en-CA");
@@ -35,18 +39,45 @@ async function loadSummary() {
         formatMoney(data.balance);
 }
 
-async function loadTransactions() {
-    const type = filterType.value;
-    const url = type ? API + "?type=" + type : API;
 
-    const response = await fetch(url);
+async function loadTransactions() {
+
+    const response = await fetch(API);
 
     if (!response.ok) {
         throw new Error("Could not load transactions");
     }
 
-    const transactions = await response.json();
+    let transactions = await response.json();
+
+    const type = filterType.value;
+    const category = filterCategory.value.trim().toLowerCase();
+    const from = startDate.value;
+    const to = endDate.value;
+
+    transactions = transactions.filter(transaction => {
+
+        const matchesType =
+            !type || transaction.type === type;
+
+        const matchesCategory =
+            !category ||
+            transaction.category.toLowerCase().includes(category);
+
+        const matchesStartDate =
+            !from || transaction.date >= from;
+
+        const matchesEndDate =
+            !to || transaction.date <= to;
+
+        return matchesType &&
+            matchesCategory &&
+            matchesStartDate &&
+            matchesEndDate;
+    });
+
     const container = document.getElementById("transactions");
+
 
     container.replaceChildren();
 
@@ -206,6 +237,24 @@ form.addEventListener("submit", async event => {
         showMessage(error.message);
     }
 });
+
+
+filterCategory.addEventListener("input", refreshDashboard);
+
+startDate.addEventListener("change", refreshDashboard);
+
+endDate.addEventListener("change", refreshDashboard);
+
+clearFilters.addEventListener("click", () => {
+
+    filterType.value = "";
+    filterCategory.value = "";
+    startDate.value = "";
+    endDate.value = "";
+
+    refreshDashboard();
+});
+
 
 filterType.addEventListener("change", refreshDashboard);
 

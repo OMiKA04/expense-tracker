@@ -98,4 +98,33 @@ button:hover {
     .delete-btn:hover {
         background: #b91c1c;
     }
+
+
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .filters input,
+    .filters select {
+        flex: 1;
+        min-width: 140px;
+    }
+
+    .filters label {
+        font-size: 14px;
+        color: #64748b;
+    }
+
+    #clearFilters {
+        background: #475569;
+    }
+
+    #clearFilters:hover {
+        background: #334155;
+    }
+
 }

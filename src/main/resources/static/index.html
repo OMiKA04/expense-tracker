@@ -51,11 +51,33 @@
     <section class="panel">
         <h2>Transaction History</h2>
 
-        <select id="filterType">
-            <option value="">All Transactions</option>
-            <option value="INCOME">Income</option>
-            <option value="EXPENSE">Expenses</option>
-        </select>
+
+        <div class="filters">
+
+            <select id="filterType">
+                <option value="">All Transactions</option>
+                <option value="INCOME">Income</option>
+                <option value="EXPENSE">Expenses</option>
+            </select>
+
+            <input
+                    type="text"
+                    id="filterCategory"
+                    placeholder="Filter by category"
+            >
+
+            <label for="startDate">From:</label>
+            <input type="date" id="startDate">
+
+            <label for="endDate">To:</label>
+            <input type="date" id="endDate">
+
+            <button type="button" id="clearFilters">
+                Clear Filters
+            </button>
+
+        </div>
+
 
         <p id="message" role="status"></p>
         <div id="transactions"></div>
